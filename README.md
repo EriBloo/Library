@@ -1,2 +1,2 @@
 # Library
-Library, made as an Odin Project excercise.
+Library, made as an Odin Project exercise.
