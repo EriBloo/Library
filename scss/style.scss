@@ -5,16 +5,12 @@
 }
 
 body {
-	font-family: "Nunito", sans-serif;
+	font-family: "Montserrat", sans-serif;
 	font-size: 62.5%;
 }
 
-// .wrapper {
-// 	display: grid;
-// 	place-items: center;
-// }
-
 .container {
+	margin-top: 2rem;
 	width: 100vw;
 	display: grid;
 	grid-gap: 2rem;
@@ -29,6 +25,8 @@ body {
 			height: 20rem;
 			border-radius: 2rem;
 			cursor: pointer;
+			box-shadow: 0.5rem 0.5rem 1rem #bbbbbb;
+			transition: all .2s ease-in-out;
 
 			h2 {
 				font-size: 3rem;
@@ -39,6 +37,30 @@ body {
 				font-size: 2rem;
 				color: #dddddd;
 			}
+
+			input {
+				font-family: inherit;
+				font-size: 2rem;
+				height: 3rem;
+				color: #f4f4f4;
+				text-align: center;
+				width: 10rem;
+				background-color: rgb(76, 76, 199);
+				border: none;
+				outline: none;
+				border-bottom: solid 2px #f4f4f4;
+			}
+
+			.form-title {
+				font-size: 3rem;
+				height: 3rem;
+			}
+			
+		}
+
+		.book:hover {
+			box-shadow: 0.5rem 0.5rem 1rem gray;
+			transform: scale(1.05);
 		}
 
 		.add {
@@ -47,6 +69,7 @@ body {
 			h2 {
 				font-size: 5rem;
 				color: #f4f4f4;
+				pointer-events: none;
 			}
 		}
 }
