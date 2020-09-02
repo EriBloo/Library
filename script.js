@@ -4,7 +4,10 @@ function Book(title, author, pages, read = false) {
 	this.pages = pages;
 	this.read = read;
 	this.info = function() {
-		return `${this.title} by ${this.author}, ${pages} pages, ${read ? "read" : "not read yet"}`;
+		return `${this.title} by ${this.author}, ${pages} pages, ${read ? "Read" : "Not read"}`;
+	}
+	this.isread = function() {
+		return `${read ? "Read" : "Not read"}`
 	}
 }
 
@@ -12,7 +15,7 @@ function addBookToLibrary(title, author, pages) {
 	library.push(new Book(title, author, pages));
 }
 
-function createForm(e) {
+function createForm() {
 	const form = document.createElement("form");
 	form.classList.add("book");
 
@@ -41,7 +44,7 @@ function createForm(e) {
 	confirm.addEventListener("click", createBook);
 	form.appendChild(confirm);
 
-	container.insertBefore(form, e.target);
+	container.insertBefore(form, addButton);
 }
 
 function createBook() {
@@ -52,9 +55,33 @@ function createBook() {
 
 	container.removeChild(form);
 
-	const book = document.createElement("div");
-	book.classList.add("book");
-	book.setAttribute("data", library.length);
+	drawLibrary([library[library.length-1]]);
+}
+
+function drawLibrary(lib) {
+	for (let [i, l] of lib.entries()) {
+		const card = document.createElement("div");
+		card.classList.add("book");
+		card.setAttribute("data", i);
+
+		const title = document.createElement("h2");
+		title.textContent = l.title;
+
+		const author = document.createElement("h3");
+		author.textContent = l.author;
+
+		const pages = document.createElement("h3");
+		pages.textContent = l.pages;
+
+		const read = document.createElement("h3");
+		read.textContent = l.isread();
+
+		card.appendChild(title);
+		card.appendChild(author);
+		card.appendChild(pages);
+		card.appendChild(read);
+		container.insertBefore(card, addButton)
+	}
 }
 
 let library = [];
@@ -62,3 +89,5 @@ let library = [];
 const container = document.querySelector(".container");
 const addButton = document.querySelector(".add");
 addButton.addEventListener("click", createForm); 
+
+drawLibrary(library);
