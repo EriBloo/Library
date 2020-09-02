@@ -8,23 +8,12 @@ function Book(title, author, pages, read = false) {
 	}
 }
 
-function addBookToLibrary(title, author, pages, read = false) {
-	library.push(new Book(title, author, pages, read));
+function addBookToLibrary(title, author, pages) {
+	library.push(new Book(title, author, pages));
 }
 
-function addBook(e) {
-	const bookForm = document.createElement("form");
-	const book = document.createElement("div");
-
-	createForm(bookForm);
-
-	container.insertBefore(bookForm, e.target);
-
-	book.classList.add("book");
-	book.setAttribute("data", library.length);
-}
-
-function createForm(form) {
+function createForm(e) {
+	const form = document.createElement("form");
 	form.classList.add("book");
 
 	const inputTitle = document.createElement("input");
@@ -42,7 +31,8 @@ function createForm(form) {
 
 	const inputPages = document.createElement("input");
 	inputPages.setAttribute("placeholder", "Pages");
-	inputPages.setAttribute("type", "text");
+	inputPages.setAttribute("type", "number");
+	inputPages.setAttribute("min", "1");
 	inputPages.setAttribute("autocomplete", "off");
 	form.appendChild(inputPages);
 
@@ -50,19 +40,25 @@ function createForm(form) {
 	confirm.textContent = "+";
 	confirm.addEventListener("click", createBook);
 	form.appendChild(confirm);
+
+	container.insertBefore(form, e.target);
 }
 
 function createBook() {
 	const form = document.querySelector("form");
 	const inputs = form.querySelectorAll("input");
 	
-	library.push(new Book(inputs[0].value, inputs[1].value, inputs[2].value));
-	
+	addBookToLibrary(inputs[0].value, inputs[1].value, inputs[2].value);
+
 	container.removeChild(form);
+
+	const book = document.createElement("div");
+	book.classList.add("book");
+	book.setAttribute("data", library.length);
 }
 
 let library = [];
 
 const container = document.querySelector(".container");
 const addButton = document.querySelector(".add");
-addButton.addEventListener("click", addBook); 
+addButton.addEventListener("click", createForm); 
