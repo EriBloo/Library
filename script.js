@@ -7,7 +7,10 @@ function Book(title, author, pages, read = false) {
 		return `${this.title} by ${this.author}, ${pages} pages, ${read ? "Read" : "Not read"}`;
 	}
 	this.isread = function() {
-		return `${read ? "Read" : "Not read"}`
+		return `${this.read ? "Read" : "Not read"}`
+	}
+	this.toggleread = function() {
+		this.read = !this.read;
 	}
 }
 
@@ -40,6 +43,7 @@ function createForm() {
 	form.appendChild(inputPages);
 
 	const confirm = document.createElement("h3");
+	confirm.classList.add("confirm");
 	confirm.textContent = "+";
 	confirm.addEventListener("click", createBook);
 	form.appendChild(confirm);
@@ -63,6 +67,7 @@ function drawLibrary(lib) {
 		const card = document.createElement("div");
 		card.classList.add("book");
 		card.setAttribute("data", library.length-1);
+		card.addEventListener("click", toggleRead);
 
 		const title = document.createElement("h2");
 		title.textContent = l.title;
@@ -75,6 +80,7 @@ function drawLibrary(lib) {
 
 		const read = document.createElement("h3");
 		read.textContent = l.isread();
+		read.classList.add("read");
 
 		const del = document.createElement("div");
 		const icon = document.createElement("i");
@@ -97,6 +103,14 @@ function removeBook(e) {
 	library.splice(e.target.parentNode.getAttribute("data"), 1);
 
 	container.removeChild(e.target.parentNode);
+}
+
+function toggleRead(e) {
+	const book = library[e.target.getAttribute("data")];
+	const read = e.target.querySelector(".read");
+	
+	book.toggleread();
+	read.textContent = book.isread();
 }
 
 let library = [];

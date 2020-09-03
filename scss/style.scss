@@ -32,11 +32,17 @@ body {
 			h2 {
 				font-size: 3rem;
 				color: #f4f4f4;
+				pointer-events: none;
 			}
 
 			h3 {
 				font-size: 2rem;
 				color: #dddddd;
+				pointer-events: none;
+			}
+
+			.confirm {
+				pointer-events: all;
 			}
 
 			input {

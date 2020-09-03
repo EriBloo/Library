@@ -34,11 +34,17 @@ body {
 .container .book h2 {
   font-size: 3rem;
   color: #f4f4f4;
+  pointer-events: none;
 }
 
 .container .book h3 {
   font-size: 2rem;
   color: #dddddd;
+  pointer-events: none;
+}
+
+.container .book .confirm {
+  pointer-events: all;
 }
 
 .container .book input {
