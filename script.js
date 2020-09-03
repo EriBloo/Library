@@ -59,10 +59,10 @@ function createBook() {
 }
 
 function drawLibrary(lib) {
-	for (let [i, l] of lib.entries()) {
+	for (let l of lib) {
 		const card = document.createElement("div");
 		card.classList.add("book");
-		card.setAttribute("data", i);
+		card.setAttribute("data", library.length-1);
 
 		const title = document.createElement("h2");
 		title.textContent = l.title;
@@ -76,18 +76,33 @@ function drawLibrary(lib) {
 		const read = document.createElement("h3");
 		read.textContent = l.isread();
 
+		const del = document.createElement("div");
+		const icon = document.createElement("i");
+		del.classList.add("delete");
+		icon.classList.add("fas");
+		icon.classList.add("fa-times")
+		del.appendChild(icon);
+		del.addEventListener("click", removeBook);
+
 		card.appendChild(title);
 		card.appendChild(author);
 		card.appendChild(pages);
 		card.appendChild(read);
+		card.appendChild(del);
 		container.insertBefore(card, addButton)
 	}
+}
+
+function removeBook(e) {
+	library.splice(e.target.parentNode.getAttribute("data"), 1);
+
+	container.removeChild(e.target.parentNode);
 }
 
 let library = [];
 
 const container = document.querySelector(".container");
 const addButton = document.querySelector(".add");
-addButton.addEventListener("click", createForm); 
+addButton.addEventListener("click", createForm);
 
 drawLibrary(library);
