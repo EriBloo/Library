@@ -80,7 +80,11 @@ function drawLibrary(lib) {
 
 		const read = document.createElement("h3");
 		read.textContent = l.isread();
-		read.classList.add("read");
+		read.classList.add("isread");
+
+		if (l.read) {
+			card.classList.add("read");
+		}
 
 		const del = document.createElement("div");
 		const icon = document.createElement("i");
@@ -97,23 +101,49 @@ function drawLibrary(lib) {
 		card.appendChild(del);
 		container.insertBefore(card, addButton)
 	}
+	localStorage.setItem("library", JSON.stringify(library));
 }
 
 function removeBook(e) {
+	e.stopPropagation();
 	library.splice(e.target.parentNode.getAttribute("data"), 1);
+	localStorage.setItem("library", JSON.stringify(library));
 
 	container.removeChild(e.target.parentNode);
 }
 
 function toggleRead(e) {
 	const book = library[e.target.getAttribute("data")];
-	const read = e.target.querySelector(".read");
-	
+	const read = e.target.querySelector(".isread");
+
+	e.target.classList.toggle("read");
+
 	book.toggleread();
 	read.textContent = book.isread();
+
+	localStorage.setItem("library", JSON.stringify(library));
 }
 
-let library = [];
+if (!localStorage.getItem("library")) {
+	var library = [];
+}
+else {
+	var library = JSON.parse(localStorage.getItem("library"));
+
+	for (let l of library) {
+		l.info = function() {
+			return `${this.title} by ${this.author}, ${pages} pages, ${read ? "Read" : "Not read"}`;
+		}
+		
+		l.isread = function() {
+			return `${this.read ? "Read" : "Not read"}`
+		}
+		
+		l.toggleread = function() {
+			this.read = !this.read;
+		}
+	}
+}
 
 const container = document.querySelector(".container");
 const addButton = document.querySelector(".add");

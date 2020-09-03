@@ -21,7 +21,7 @@ body {
 .container .book {
   display: grid;
   place-items: center;
-  background-color: #4c4cc7;
+  background-color: #505050;
   width: 20rem;
   height: 20rem;
   border-radius: 2rem;
@@ -53,8 +53,8 @@ body {
   height: 3rem;
   color: #f4f4f4;
   text-align: center;
+  background-color: #505050;
   width: 10rem;
-  background-color: #4c4cc7;
   border: none;
   outline: none;
   border-bottom: solid 2px #f4f4f4;
@@ -111,4 +111,8 @@ body {
   font-size: 5rem;
   color: #f4f4f4;
   pointer-events: none;
+}
+
+.container .read {
+  background-color: #4c4cc7;
 }
